@@ -91,7 +91,7 @@ resource "null_resource" "control-node" {
     provisioner "remote-exec" {
       inline = [
         "sudo apt update ",
-        "sudo apt install software-properties-common ",
+        "sudo apt install -y software-properties-common ",
         "sudo add-apt-repository --yes --update ppa:ansible/ansible ",
         "sudo apt install ansible -y ",
         "echo '[webservers]' > ~/hosts",
@@ -132,11 +132,11 @@ resource "null_resource" "client-node" {
     provisioner "remote-exec" {
       inline = [
         "sudo apt update ",
-        "sudo apt install software-properties-common ",
-	      "sudo add-apt-repository --yes --update ppa:linuxuprising/java ",
-	      "sudo apt install -y openjdk-11-jdk ",
-	      "sudo apt-cache search tomcat ",
-	      "sudo apt install -y tomcat9 tomcat9-admin"
+        "sudo apt install -y software-properties-common ",
+	"sudo add-apt-repository --yes --update ppa:linuxuprising/java ",
+	"sudo apt install -y openjdk-11-jdk ",
+	"sudo apt-cache search tomcat ",
+	"sudo apt install -y tomcat9 tomcat9-admin"
       ]
     }
 
