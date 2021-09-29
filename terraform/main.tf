@@ -97,7 +97,21 @@ resource "null_resource" "control-node" {
         "echo '[webservers]' > ~/hosts",
         "echo '${aws_instance.web.*.public_dns[1]}' >> ~/hosts",
         "echo '${tls_private_key.private-key.private_key_pem}' > ~/.ssh/xyz.pem && chmod 600 ~/.ssh/xyz.pem",
-        "sudo sed -i '71s/.*/host_key_checking = False/' /etc/ansible/ansible.cfg"
+        "sudo sed -i '71s/.*/host_key_checking = False/' /etc/ansible/ansible.cfg",
+        "sudo apt install -y openjdk-11-jdk ",
+        "sudo apt-get install -y git",
+        "sudo apt-get install -y maven",
+        "sudo wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -",
+        "sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'",
+        "sudo apt update",
+        "sudo apt install -y jenkins",
+        "sudo systemctl start jenkins",
+        "echo 'Java_Home:'",
+        "readlink -f $(which java)",
+        "echo 'Mvn_Home:'",
+        "mvn -v",
+        "echo 'Jenkins Initial Admin password:'",
+        "sudo cat /var/lib/jenkins/secrets/initialAdminPassword"
       ]
     }
 
@@ -119,9 +133,10 @@ resource "null_resource" "client-node" {
       inline = [
         "sudo apt update ",
         "sudo apt install software-properties-common ",
-        "sudo apt install -y default-jdk ",
-        "sudo apt-cache search tomcat ",
-        "sudo apt install -y tomcat9 tomcat9-admin"
+	      "sudo add-apt-repository --yes --update ppa:linuxuprising/java ",
+	      "sudo apt install -y openjdk-11-jdk ",
+	      "sudo apt-cache search tomcat ",
+	      "sudo apt install -y tomcat9 tomcat9-admin"
       ]
     }
 
