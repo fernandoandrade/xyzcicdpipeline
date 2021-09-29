@@ -121,7 +121,7 @@ resource "null_resource" "client-node" {
         "sudo apt install software-properties-common ",
         "sudo apt install -y default-jdk ",
         "sudo apt-cache search tomcat ",
-        "sudo apt install tomcat9 tomcat9-admin"
+        "sudo apt install -y tomcat9 tomcat9-admin"
       ]
     }
 
