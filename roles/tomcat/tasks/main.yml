@@ -1,6 +1,9 @@
 ---
-- name: Install Java 1.7
-  yum: name=java-1.7.0-openjdk state=present
+- name: Update repository
+  command: apt update
+
+- name: Install Java
+  yum: name=openjdk-11-jdk state=present
 
 - name: add group "tomcat"
   group: name={{tomcat_group}}
@@ -25,10 +28,8 @@
 - name: Configure Tomcat server
   template: src=server.xml dest=/usr/share/tomcat/conf/
 
-
 - name: Configure Tomcat users
   template: src=tomcat-users.xml dest=/usr/share/tomcat/conf/
-
   
 - name: Create  sample directory
   file: 
@@ -40,7 +41,6 @@
 - name: copy sample index.html file
   template: src=index.html.j2 dest=/opt/apache-tomcat-7.0.61/webapps/samples/index.html
 
-
   notify: restart tomcat
 
 - name: Install Tomcat init script
@@ -51,4 +51,3 @@
 
 - name: wait for tomcat to start
   wait_for: port={{http_port}}
-
