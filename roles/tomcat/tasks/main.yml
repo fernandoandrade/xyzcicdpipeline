@@ -1,3 +1,6 @@
 ---
 - name: Update repository
   command: apt update
+
+- name: Pause for 1 minutes to build app cache
+  pause: minutes=1
