@@ -15,7 +15,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh "sudo ansible-playbook main.yml -i inventories/dev/hosts --user jenkins --key-file ~/.ssh/xyz.pem -e '@configs/dev.yml'"
+                sh "ansible-playbook main.yml -i inventories/dev/hosts --user jenkins --key-file ~/.ssh/xyz.pem -e '@configs/dev.yml'"
                 echo 'Deploy completed'             
             }
         }
