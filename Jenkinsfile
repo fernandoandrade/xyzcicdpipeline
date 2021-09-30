@@ -8,7 +8,7 @@ pipeline {
         }
         stage('package') {
             steps {
-                sh 'mvn package'
+                sh 'mvn clean package'
                 echo 'Packaged created.'                
             }
             
